@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Nutrition Label Search";
+}
+@model Nutrition.Models.NutritionLabel
+
+<h1>Nutrition Label Search</h1>
+
+
+<form id="searchForm">
+    <input class="p-2 my-2 w-75" type="text" id="searchQuery" placeholder="Enter food item..." required />
+    <button class="p-2 my-2" type="submit">Search</button>
+</form>
+
+<div class="my-2" id="nutritionLabel"></div>
+
+<script>
+    document.getElementById('searchForm').onsubmit = async function (event) {
+        event.preventDefault();
+        const food = document.getElementById('searchQuery').value;
+        const response = await fetch(`/api/nutrition?food=${food}`);
+        const html = await response.text();
+        document.getElementById('nutritionLabel').innerHTML = html;
+
+    };
+</script>
